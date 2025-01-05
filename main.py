@@ -5,8 +5,10 @@ from copy import deepcopy
 def get_birthdays_per_week(users):
     users = deepcopy(users) # копія вхідного списку
     days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] # дні тижня для складання вихідного словника
-
     result = {} # вихідний словник
+
+    if len(users) == 0: # випадок коли було отримано пустий список
+        return result
 
     for i in range (7): # ітерація вздовж тижня включаючи сьогоднішній день
         for person in users:
