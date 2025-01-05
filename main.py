@@ -3,20 +3,20 @@ from copy import deepcopy
 
 
 def get_birthdays_per_week(users):
-    users = deepcopy(users)
-    days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    users = deepcopy(users) # копія вхідного списку
+    days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] # дні тижня для складання вихідного словника
 
-    result = {}
+    result = {} # вихідний словник
 
-    for i in range (7):
+    for i in range (7): # ітерація вздовж тижня включаючи сьогоднішній день
         for person in users:
-            cur_date = date.today() + timedelta(days=i)
+            cur_date = date.today() + timedelta(days=i) # дата в поточній ітерації
 
-            if (person['birthday'].month, person['birthday'].day) == (cur_date.month, cur_date.day):
-                if cur_date.weekday() == 5 or cur_date.weekday() == 6:
-                    result['Monday'] = result.get('Monday', []) + [person['name']]
+            if (person['birthday'].month, person['birthday'].day) == (cur_date.month, cur_date.day): # порівняння поточної дати з датою дня народження
+                if cur_date.weekday() == 5 or cur_date.weekday() == 6: # випадок якщо день народження припадає на вихідні
+                    result['Monday'] = result.get('Monday', []) + [person['name']] # привітання переноситься на понеділок
                 else:
-                    result[days_of_week[cur_date.weekday()]] = result.get(days_of_week[cur_date.weekday()], []) + [person['name']]
+                    result[days_of_week[cur_date.weekday()]] = result.get(days_of_week[cur_date.weekday()], []) + [person['name']] # у вихідному словнику, до списку, що асоціюється з ключем, що відповідає дню тижня, додаємо імена людей у кого в цей день - день народження
 
     return result
 
